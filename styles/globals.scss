@@ -1,0 +1,35 @@
+@import "./variables.module.scss";
+
+body {
+  color: rgb(var(--foreground-rgb));
+}
+
+* {
+  color: $text-color;
+}
+
+.s1 {
+  font-size: 16px;
+  line-height: 18px;
+}
+.s2 {
+  font-size: 14px;
+  line-height: 16px;
+}
+.s3 {
+  font-size: 12px;
+  line-height: 14px;
+}
+.medium {
+  font-weight: 500;
+}
+.bold {
+  font-weight: 600;
+}
+
+.base-card {
+  background-color: rgba(17, 29, 74, 0.1);
+  box-shadow: $primary-shadow;
+  border-radius: 20px;
+  padding: 20px 40px;
+}

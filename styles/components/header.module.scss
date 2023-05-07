@@ -1,0 +1,10 @@
+@import "../variables.module.scss";
+
+#header {
+  border-bottom: solid 2px #000000;
+  background-color: $secondary-bg;
+  a {
+    color: $text-color;
+    text-decoration: none;
+  }
+}

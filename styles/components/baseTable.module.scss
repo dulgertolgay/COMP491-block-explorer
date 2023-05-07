@@ -1,0 +1,19 @@
+@import "../variables.module.scss";
+
+.baseTable {
+  border-top: solid 1px $primary-color;
+  tbody {
+    border-top: solid 3px $border-color;
+    border-bottom: solid 3px $border-color;
+  }
+  th,
+  td {
+    height: 40px;
+    padding: 0;
+    vertical-align: middle;
+  }
+  td {
+    color: $primary-color;
+    border-bottom: solid 1px $border-color;
+  }
+}
