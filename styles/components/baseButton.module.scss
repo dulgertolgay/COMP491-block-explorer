@@ -1,0 +1,9 @@
+@import "../variables.module.scss";
+
+.baseButton {
+  height: 34px;
+  background: transparent;
+  padding: 8px;
+  border: solid 2px $primary-color;
+  border-radius: 10px;
+}
