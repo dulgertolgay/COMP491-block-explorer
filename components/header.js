@@ -9,15 +9,14 @@ const Header = () => {
   return (
     <Navbar id={styles.header} bg="light" expand="lg">
       <Container>
-        <Navbar.Brand href="/">
-          <Link href="/">Block Explorer</Link>
-        </Navbar.Brand>
+        <Link href="/" className={styles.brand}>
+          Block Explorer
+        </Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="/bridge">
-              <Link href="/bridge">Bridge</Link>
-            </Nav.Link>
+            <Link href="/blocks">Blocks</Link>
+            <Link href="/transactions">Transactions</Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

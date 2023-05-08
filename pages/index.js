@@ -2,6 +2,7 @@ import styles from "../styles/index.module.scss";
 
 import BaseTable from "../components/baseTable";
 import BaseButton from "../components/baseButton";
+import Link from "next/link";
 
 const Home = () => {
   const blockTableColNames = ["BLOCK NUMBER", "HASH", "TRANSACTION", "FEES"];
@@ -35,31 +36,35 @@ const Home = () => {
     },
   ];
 
-  const click = () => {
-    console.log("works");
-  };
-
   return (
     <div
       id={styles.main}
       className="flex flex-col items-center justify-between p-24"
     >
-      <div className={`${styles.tableContainer} base-card`}>
-        <p className={`${styles.tableTitle} bold`}>LATEST BLOCKS</p>
-        <BaseTable colNames={blockTableColNames} tableData={blockData} />
-        <BaseButton variant="primary" width="100%" clickAction={click}>
-          View All Blocks
-        </BaseButton>
+      <div className={`${styles.cardModified} base-card`}>
+        <p className="card-title bold">LATEST BLOCKS</p>
+        <div className={styles.tableContainer}>
+          <BaseTable colNames={blockTableColNames} tableData={blockData} />
+        </div>
+        <Link href="/blocks">
+          <BaseButton variant="primary" width="100%">
+            View All Blocks
+          </BaseButton>
+        </Link>
       </div>
-      <div className={`${styles.tableContainer} base-card`}>
-        <p className={`${styles.tableTitle} bold`}>LATEST TRANSACTIONS</p>
-        <BaseTable
-          colNames={transactionTableColNames}
-          tableData={transactionData}
-        />
-        <BaseButton variant="primary" width="100%" clickAction={click}>
-          View All Transactions
-        </BaseButton>
+      <div className={`${styles.cardModified} base-card`}>
+        <p className="card-title bold">LATEST TRANSACTIONS</p>
+        <div className={styles.tableContainer}>
+          <BaseTable
+            colNames={transactionTableColNames}
+            tableData={transactionData}
+          />
+        </div>
+        <Link href="/transactions">
+          <BaseButton variant="primary" width="100%">
+            View All Transactions
+          </BaseButton>
+        </Link>
       </div>
     </div>
   );
