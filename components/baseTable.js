@@ -1,41 +1,48 @@
 import styles from "../styles/components/baseTable.module.scss";
 
-import Table from "react-bootstrap/Table";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableHead from "@mui/material/TableHead";
+import TableContainer from "@mui/material/TableContainer";
+import TableRow from "@mui/material/TableRow";
 
 const BaseTable = (props) => {
   const { colNames, tableData } = props;
 
   const SingleRow = (props) => {
     return (
-      <tr>
+      <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
         {Object.values(props.row).map((value, index) => {
           return (
-            <td key={value} className="s2">
+            <TableCell key={value} className="s2">
               {value}
-            </td>
+            </TableCell>
           );
         })}
-      </tr>
+      </TableRow>
     );
   };
 
   return (
-    <Table className={styles.baseTable}>
-      <thead>
-        <tr>
-          {colNames.map((name, i) => (
-            <th key={name + i} className="s1 medium">
-              {name}
-            </th>
+    <TableContainer sx={{ maxHeight: 400 }}>
+      <Table stickyHeader className={styles.baseTable}>
+        <TableHead>
+          <TableRow>
+            {colNames.map((name, i) => (
+              <TableCell key={name + i} className="s1 medium">
+                {name}
+              </TableCell>
+            ))}
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {tableData.map((data, i) => (
+            <SingleRow key={data} row={data} />
           ))}
-        </tr>
-      </thead>
-      <tbody>
-        {tableData.map((data, i) => (
-          <SingleRow key={data} row={data} />
-        ))}
-      </tbody>
-    </Table>
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
 };
 
