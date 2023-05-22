@@ -45,8 +45,7 @@ const Blocks = () => {
     {
       field: "gasUsed",
       headerName: "GAS USED",
-      type: "number",
-      format: (value) => Number(value).toFixed(3),
+      type: "string",
       ...defaultColumnOptions,
     },
   ];
