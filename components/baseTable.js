@@ -8,17 +8,18 @@ import TableContainer from "@mui/material/TableContainer";
 import TableRow from "@mui/material/TableRow";
 
 const BaseTable = (props) => {
-  const { colNames, tableData } = props;
+  const { colNames, fields, tableData } = props;
 
-  const SingleRow = (props) => {
+  const SingleRow = ({ row }) => {
     return (
       <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-        {Object.values(props.row).map((value, index) => {
-          return (
-            <TableCell key={value} className="s2">
-              {value}
-            </TableCell>
-          );
+        {Object.entries(row).map(([key, value], i) => {
+          if (fields.includes(key))
+            return (
+              <TableCell key={row._id + i} className="s2">
+                {value}
+              </TableCell>
+            );
         })}
       </TableRow>
     );
@@ -38,7 +39,7 @@ const BaseTable = (props) => {
         </TableHead>
         <TableBody>
           {tableData.map((data, i) => (
-            <SingleRow key={data} row={data} />
+            <SingleRow key={data._id + i} row={data} />
           ))}
         </TableBody>
       </Table>
