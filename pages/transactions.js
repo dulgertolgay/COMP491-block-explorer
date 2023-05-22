@@ -46,15 +46,13 @@ const Transactions = () => {
     {
       field: "gasPrice",
       headerName: "GAS PRICE",
-      type: "number",
-      format: (value) => Number(value).toFixed(3),
+      type: "string",
       ...defaultColumnOptions,
     },
     {
       field: "value",
       headerName: "AMOUNT",
-      type: "number",
-      format: (value) => Number(value).toFixed(3),
+      type: "string",
       ...defaultColumnOptions,
     },
   ];

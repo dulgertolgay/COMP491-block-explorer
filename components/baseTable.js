@@ -13,13 +13,12 @@ const BaseTable = (props) => {
   const SingleRow = ({ row }) => {
     return (
       <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-        {Object.entries(row).map(([key, value], i) => {
-          if (fields.includes(key))
-            return (
-              <TableCell key={row._id + i} className="s2">
-                {value}
-              </TableCell>
-            );
+        {fields.map((field, i) => {
+          return (
+            <TableCell key={row._id + i} className="s2">
+              {row[field]}
+            </TableCell>
+          );
         })}
       </TableRow>
     );
