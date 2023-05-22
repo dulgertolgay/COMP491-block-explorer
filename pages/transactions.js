@@ -1,94 +1,78 @@
-import * as React from "react";
+import { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-
-const defaultColumnOptions = {
-  flex: 1,
-  sortable: false,
-  headerAlign: "left",
-  align: "left",
-};
-
-const columns = [
-  { field: "id", headerName: "ID", type: "string", ...defaultColumnOptions },
-  {
-    field: "hash",
-    headerName: "HASH",
-    type: "string",
-    ...defaultColumnOptions,
-  },
-
-  {
-    field: "from",
-    headerName: "FROM",
-    type: "string",
-    ...defaultColumnOptions,
-  },
-  {
-    field: "to",
-    headerName: "TO",
-    type: "string",
-    ...defaultColumnOptions,
-  },
-  {
-    field: "amount",
-    headerName: "AMOUNT",
-    type: "number",
-    format: (value) => value.toFixed(3),
-    ...defaultColumnOptions,
-  },
-];
-
-const rows = [
-  {
-    id: 1,
-    hash: "0x6f5ff...6823306",
-    from: "0x6f5ff...6823306",
-    to: "0x6f5ff...6823306",
-    amount: 0.123,
-  },
-  {
-    id: 2,
-    hash: "0x6f5ff...6823306",
-    from: "0x6f5ff...6823306",
-    to: "0x6f5ff...6823306",
-    amount: 0.123,
-  },
-  {
-    id: 3,
-    hash: "0x6f5ff...6823306",
-    from: "0x6f5ff...6823306",
-    to: "0x6f5ff...6823306",
-    amount: 0.123,
-  },
-  {
-    id: 4,
-    hash: "0x6f5ff...6823306",
-    from: "0x6f5ff...6823306",
-    to: "0x6f5ff...6823306",
-    amount: 0.123,
-  },
-  {
-    id: 5,
-    hash: "0x6f5ff...6823306",
-    from: "0x6f5ff...6823306",
-    to: "0x6f5ff...6823306",
-    amount: 0.123,
-  },
-  {
-    id: 6,
-    hash: "0x6f5ff...6823306",
-    from: "0x6f5ff...6823306",
-    to: "0x6f5ff...6823306",
-    amount: 0.123,
-  },
-];
+import getTransactions from "./backend/getTransactions";
 
 const Transactions = () => {
+  const [transactions, setTransactions] = useState([]);
+  const defaultColumnOptions = {
+    flex: 1,
+    sortable: false,
+    headerAlign: "left",
+    align: "left",
+  };
+
+  const columns = [
+    { field: "id", headerName: "ID", type: "string", ...defaultColumnOptions },
+    {
+      field: "hash",
+      headerName: "HASH",
+      type: "string",
+      ...defaultColumnOptions,
+    },
+    {
+      field: "blockNumber",
+      headerName: "BLOCK NO",
+      type: "number",
+      ...defaultColumnOptions,
+    },
+    {
+      field: "from",
+      headerName: "FROM",
+      type: "string",
+      ...defaultColumnOptions,
+    },
+    {
+      field: "to",
+      headerName: "TO",
+      type: "string",
+      ...defaultColumnOptions,
+    },
+    {
+      field: "transactionIndex",
+      headerName: "TRANSACTION INDEX",
+      type: "number",
+      ...defaultColumnOptions,
+    },
+    {
+      field: "gasPrice",
+      headerName: "GAS PRICE",
+      type: "number",
+      format: (value) => Number(value).toFixed(3),
+      ...defaultColumnOptions,
+    },
+    {
+      field: "value",
+      headerName: "AMOUNT",
+      type: "number",
+      format: (value) => Number(value).toFixed(3),
+      ...defaultColumnOptions,
+    },
+  ];
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = async () => {
+    const transactions = await getTransactions();
+    setTransactions(transactions);
+  };
+
   return (
     <div className="base-card" style={{ margin: "50px" }}>
       <p className="card-title bold">TRANSACTIONS</p>
       <DataGrid
-        rows={rows}
+        rows={transactions}
         columns={columns}
         initialState={{
           pagination: {

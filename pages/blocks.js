@@ -1,93 +1,70 @@
-import * as React from "react";
+import { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-
-const defaultColumnOptions = {
-  flex: 1,
-  sortable: false,
-  headerAlign: "left",
-  align: "left",
-};
-
-const columns = [
-  { field: "id", headerName: "ID", type: "string", ...defaultColumnOptions },
-  {
-    field: "blockNumber",
-    headerName: "BLOCK NUMBER",
-    type: "number",
-    ...defaultColumnOptions,
-  },
-  {
-    field: "hash",
-    headerName: "HASH",
-    type: "string",
-    ...defaultColumnOptions,
-  },
-  {
-    field: "transaction",
-    headerName: "TRANSACTION",
-    type: "number",
-    ...defaultColumnOptions,
-  },
-  {
-    field: "fee",
-    headerName: "FEES",
-    type: "number",
-    format: (value) => value.toFixed(3),
-    ...defaultColumnOptions,
-  },
-];
-
-const rows = [
-  {
-    id: 1,
-    blockNumber: 27934515,
-    hash: "0x6f5ff...6823306",
-    transaction: 123,
-    fee: 0.123,
-  },
-  {
-    id: 2,
-    blockNumber: 27934515,
-    hash: "0x6f5ff...6823306",
-    transaction: 123,
-    fee: 0.123,
-  },
-  {
-    id: 3,
-    blockNumber: 27934515,
-    hash: "0x6f5ff...6823306",
-    transaction: 123,
-    fee: 0.123,
-  },
-  {
-    id: 4,
-    blockNumber: 27934515,
-    hash: "0x6f5ff...6823306",
-    transaction: 123,
-    fee: 0.123,
-  },
-  {
-    id: 5,
-    blockNumber: 27934515,
-    hash: "0x6f5ff...6823306",
-    transaction: 123,
-    fee: 0.123,
-  },
-  {
-    id: 6,
-    blockNumber: 27934515,
-    hash: "0x6f5ff...6823306",
-    transaction: 123,
-    fee: 0.123,
-  },
-];
+import getBlocks from "./backend/getBlocks";
 
 const Blocks = () => {
+  const [blocks, setBlocks] = useState([]);
+  const defaultColumnOptions = {
+    flex: 1,
+    sortable: false,
+    headerAlign: "left",
+    align: "left",
+  };
+  const columns = [
+    { field: "id", headerName: "ID", type: "string", ...defaultColumnOptions },
+    {
+      field: "number",
+      headerName: "BLOCK NUMBER",
+      type: "number",
+      ...defaultColumnOptions,
+    },
+    {
+      field: "hash",
+      headerName: "HASH",
+      type: "string",
+      ...defaultColumnOptions,
+    },
+    {
+      field: "time",
+      headerName: "TIME",
+      type: "string",
+      ...defaultColumnOptions,
+    },
+    {
+      field: "miner",
+      headerName: "MINER",
+      type: "string",
+      ...defaultColumnOptions,
+    },
+    {
+      field: "difficulty",
+      headerName: "DIFFICULTY",
+      type: "number",
+      ...defaultColumnOptions,
+    },
+    {
+      field: "gasUsed",
+      headerName: "GAS USED",
+      type: "number",
+      format: (value) => Number(value).toFixed(3),
+      ...defaultColumnOptions,
+    },
+  ];
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = async () => {
+    const blocks = await getBlocks();
+    setBlocks(blocks);
+  };
+
   return (
     <div className="base-card" style={{ margin: "50px" }}>
       <p className="card-title bold">BLOCKS</p>
       <DataGrid
-        rows={rows}
+        rows={blocks}
         columns={columns}
         initialState={{
           pagination: {
