@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import getTransactions from "./backend/getTransactions";
+import getTransactions from "../backend/getTransactions";
 
 const Transactions = () => {
   const [transactions, setTransactions] = useState([]);
