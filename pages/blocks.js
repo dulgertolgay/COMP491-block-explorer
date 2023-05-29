@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import getBlocks from "./backend/getBlocks";
+import getBlocks from "../backend/getBlocks";
 
 const Blocks = () => {
   const [blocks, setBlocks] = useState([]);

@@ -1,7 +1,7 @@
 import styles from "../styles/index.module.scss";
 import { useEffect, useState } from "react";
-import getBlocks from "./backend/getBlocks";
-import getTransactions from "./backend/getTransactions";
+import getBlocks from "../backend/getBlocks";
+import getTransactions from "../backend/getTransactions";
 
 import BaseTable from "../components/baseTable";
 import BaseButton from "../components/baseButton";
