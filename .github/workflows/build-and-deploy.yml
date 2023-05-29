@@ -24,8 +24,7 @@ jobs:
           # configure the build here
 
       - name: Deploy
-        run: |
-          npm ci
-          npm run build
-          npm run export
-          touch out/.nojekyll
+        uses: JamesIves/github-pages-deploy-action@4.4.0 
+        with:
+          branch: gh-pages
+          folder: out
