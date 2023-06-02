@@ -1,24 +1,33 @@
 import styles from "../styles/components/header.module.scss";
+import { useContext } from "react";
+import { AppContext } from "../context/AppContext";
 
 import Container from "react-bootstrap/Container";
-import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Link from "next/link";
+import BaseButton from "./baseButton";
 
 const Header = () => {
+  const { account, connectWallet } = useContext(AppContext);
   return (
-    <Navbar id={styles.header} bg="light" expand="lg">
+    <Navbar id={styles.header} bg="light" expand="lg" className="jc-sb">
       <Container>
         <Link href="/" className={styles.brand}>
-          Block Explorer
+          Bridge
         </Link>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
-            <Link href="/blocks">Blocks</Link>
-            <Link href="/transactions">Transactions</Link>
-          </Nav>
-        </Navbar.Collapse>
+        {account ? (
+          <BaseButton variant="primary" width="250px">
+            Connected
+          </BaseButton>
+        ) : (
+          <BaseButton
+            variant="primary"
+            width="250px"
+            clickAction={connectWallet}
+          >
+            Connect to Wallet
+          </BaseButton>
+        )}
       </Container>
     </Navbar>
   );

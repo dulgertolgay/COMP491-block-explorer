@@ -1,0 +1,16 @@
+@import "./variables.module.scss";
+
+#main {
+  height: 100vh;
+  padding: 50px;
+  .cardModified {
+    width: 100%;
+    margin-bottom: 50px;
+    .tableContainer {
+      margin-bottom: 20px;
+    }
+  }
+  @media only screen and (max-width: 768px) {
+    padding: 50px 20px;
+  }
+}

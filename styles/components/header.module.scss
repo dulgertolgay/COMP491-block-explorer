@@ -1,8 +1,7 @@
 @import "../variables.module.scss";
 
 #header {
-  border-bottom: solid 2px #000000;
-  background-color: $secondary-bg;
+  background: transparent;
   .brand {
     font-size: 20px;
     font-weight: 500;

@@ -1,0 +1,49 @@
+@import "./variables.module.scss";
+
+@import "@fontsource/roboto/300.css";
+@import "@fontsource/roboto/400.css";
+@import "@fontsource/roboto/500.css";
+@import "@fontsource/roboto/700.css";
+
+body {
+  color: rgb(var(--foreground-rgb));
+}
+
+* {
+  color: $text-color;
+}
+
+a {
+  color: $text-color !important;
+  text-decoration: none !important;
+}
+
+.s1 {
+  font-size: 16px;
+  line-height: 18px;
+}
+.s2 {
+  font-size: 14px;
+  line-height: 16px;
+}
+.s3 {
+  font-size: 12px;
+  line-height: 14px;
+}
+.medium {
+  font-weight: 500;
+}
+.bold {
+  font-weight: 600;
+}
+
+.base-card {
+  background-color: $card-bg;
+  box-shadow: $primary-shadow;
+  border-radius: 20px;
+  padding: 20px 40px;
+  .card-title {
+    font-size: 30px;
+    margin-bottom: 20px;
+  }
+}
