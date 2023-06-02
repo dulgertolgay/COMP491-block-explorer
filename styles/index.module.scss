@@ -17,4 +17,21 @@
       margin-top: 10px;
     }
   }
+  @media only screen and (max-width: 768px) {
+    width: 100vw;
+    padding: 50px 20px;
+    .cardModified {
+      width: 100vw;
+      .amountInfo {
+        border: 1px solid $primary-blue;
+        padding: 25px;
+        border-radius: 20px;
+        margin-bottom: 30px;
+      }
+      .errorText {
+        color: red;
+        margin-top: 10px;
+      }
+    }
+  }
 }
