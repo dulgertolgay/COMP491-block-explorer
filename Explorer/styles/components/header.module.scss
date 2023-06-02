@@ -1,0 +1,13 @@
+@import "../variables.module.scss";
+
+#header {
+  border-bottom: solid 2px #000000;
+  background-color: $secondary-bg;
+  .brand {
+    font-size: 20px;
+    font-weight: 500;
+  }
+  a {
+    margin: 0 20px;
+  }
+}

@@ -1,85 +1,107 @@
 import styles from "../styles/index.module.scss";
-import { useEffect, useState } from "react";
-import getBlocks from "../backend/getBlocks";
-import getTransactions from "../backend/getTransactions";
+import { useContext, useState } from "react";
+import { AppContext } from "../context/AppContext";
 
-import BaseTable from "../components/baseTable";
 import BaseButton from "../components/baseButton";
-import Link from "next/link";
+import TransactionCard from "@/components/transactionCard";
 
 const Home = () => {
-  const [blocks, setBlocks] = useState([]);
-  const [transactions, setTransactions] = useState([]);
+  const {
+    balance,
+    account,
+    network,
+    connectWallet,
+    sendTransactionAvaxToZate,
+    sendTransactionZateToAvax,
+    changeNetwork,
+    resetBalance,
+  } = useContext(AppContext);
+
   const [loading, setLoading] = useState(false);
+  const [originNetwork, setOriginNetwork] = useState("avax");
+  const [destinationNetwork, setDestinationNetwork] = useState("zate");
+  const [selectedCrypto, setSelectedCrypto] = useState("zate");
+  const [amount, setAmount] = useState(10);
 
-  const blockTableColNames = [
-    "BLOCK NUMBER",
-    "HASH",
-    "TIME",
-    "MINER",
-    "DIFFICULTY",
-  ];
-  const blockDataFields = ["number", "hash", "time", "miner", "difficulty"];
-  const transactionTableColNames = ["HASH", "FROM", "TO", "AMOUNT"];
-  const transactionDataFields = ["hash", "from", "to", "value"];
+  const buttonDisabled =
+    (originNetwork === "zate" && network !== "zate") || balance < amount;
 
-  useEffect(() => {
-    if (
-      window.location.host.indexOf("github.io") > -1 &&
-      window.location.protocol != "http:"
-    ) {
-      window.location.protocol = "http";
+  const handleClick = async () => {
+    if (account) {
+      setLoading(true);
+      if (originNetwork === "avax") {
+        await sendTransactionAvaxToZate(amount);
+      } else {
+        await sendTransactionZateToAvax(amount);
+      }
+      setLoading(false);
+    } else {
+      connectWallet();
     }
-    setLoading(true);
-    getData();
-    setLoading(false);
-  }, []);
+  };
 
-  const getData = async () => {
-    const blocks = await getBlocks();
-    setBlocks(blocks);
-    const transactions = await getTransactions();
-    setTransactions(transactions);
+  const switchNetwork = () => {
+    if (originNetwork === "avax") {
+      setOriginNetwork("zate");
+      setDestinationNetwork("avax");
+      resetBalance();
+    } else {
+      setOriginNetwork("avax");
+      setDestinationNetwork("zate");
+      changeNetwork();
+    }
+  };
+
+  const handleTransactionData = (key, val) => {
+    switch (key) {
+      case "originNetwork":
+        setOriginNetwork(val);
+        break;
+      case "destinationNetwork":
+        setDestinationNetwork(val);
+        break;
+      case "selectedCrypto":
+        setSelectedCrypto(val);
+        break;
+      default:
+        setAmount(val);
+    }
   };
 
   return (
-    <div
-      id={styles.main}
-      className="flex flex-col items-center justify-between p-24"
-    >
+    <div id={styles.main} className="flex jc-c p-24">
       <div className={`${styles.cardModified} base-card`}>
-        <p className="card-title bold">LATEST BLOCKS</p>
-        <div className={styles.tableContainer}>
-          {!loading && (
-            <BaseTable
-              colNames={blockTableColNames}
-              fields={blockDataFields}
-              tableData={blocks}
-            />
-          )}
-        </div>
-        <Link href="/blocks">
-          <BaseButton variant="primary" width="100%">
-            View All Blocks
-          </BaseButton>
-        </Link>
-      </div>
-      <div className={`${styles.cardModified} base-card`}>
-        <p className="card-title bold">LATEST TRANSACTIONS</p>
-        <div className={styles.tableContainer}>
-          {!loading && (
-            <BaseTable
-              colNames={transactionTableColNames}
-              fields={transactionDataFields}
-              tableData={transactions}
-            />
-          )}
-        </div>
-        <Link href="/transactions">
-          <BaseButton variant="primary" width="100%">
-            View All Transactions
-          </BaseButton>
-        </Link>
+        <p className="card-title bold">BRIDGE</p>
+        <p className="card-desc">Send your assets</p>
+        <TransactionCard
+          balance={balance}
+          originNetwork={originNetwork}
+          destinationNetwork={destinationNetwork}
+          selectedCrypto={selectedCrypto}
+          amount={amount}
+          onDataChange={handleTransactionData}
+          switchNetwork={switchNetwork}
+        />
+        <BaseButton
+          variant="primary"
+          width="100%"
+          clickAction={handleClick}
+          loading={loading}
+          disabled={buttonDisabled}
+        >
+          {account ? "Send" : "Connect to Wallet"}
+        </BaseButton>
+        {originNetwork === "zate" && network !== "zate" ? (
+          <span className={`${styles.errorText} s2`}>
+            Switch to ZATE network
+          </span>
+        ) : (
+          balance < amount && (
+            <span className={`${styles.errorText} s2`}>
+              There is not enough balance in your wallet
+            </span>
+          )
+        )}
       </div>
     </div>
   );
