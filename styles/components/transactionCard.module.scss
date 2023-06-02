@@ -68,4 +68,26 @@
     margin-left: 10px;
     margin-right: 25px;
   }
+  @media only screen and (max-width: 768px) {
+    padding: 20px;
+
+    .head {
+      flex-direction: column;
+      align-items: flex-start;
+      .flex {
+        margin: 10px 0;
+      }
+    }
+    .customInput {
+      margin: 0;
+    }
+    .innerCard {
+      flex-direction: column;
+      align-items: flex-start;
+      .amountField {
+        margin: 10px 0;
+        width: 100%;
+      }
+    }
+  }
 }

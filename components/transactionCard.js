@@ -35,30 +35,32 @@ const TransactionCard = (props) => {
   return (
     <div className={styles.transactionCard}>
       <div className={`${styles.head} flex ai-c`}>
-        <span className="s1">From</span>
-        <FormControl
-          size="small"
-          className={styles.customInput}
-          style={{ marginRight: "30px" }}
-        >
-          <Select
-            value={originNetwork}
-            onChange={(e) => handleDataChange(e, "originNetwork")}
-            defaultValue="avax"
+        <div className="flex ai-c">
+          <span className="s1">From</span>
+          <FormControl
+            size="small"
+            className={styles.customInput}
+            style={{ marginRight: "30px" }}
           >
-            {networks.map((network) => (
-              <MenuItem value={network.val} key={network.val}>
-                <img
-                  src={`/cryptoIcons/${network.val}.svg`}
-                  width={24}
-                  height={24}
-                  style={{ marginRight: "5px" }}
-                />
-                <span className="s1 medium">{network.name}</span>
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+            <Select
+              value={originNetwork}
+              onChange={(e) => handleDataChange(e, "originNetwork")}
+              defaultValue="avax"
+            >
+              {networks.map((network) => (
+                <MenuItem value={network.val} key={network.val}>
+                  <img
+                    src={`/cryptoIcons/${network.val}.svg`}
+                    width={24}
+                    height={24}
+                    style={{ marginRight: "5px" }}
+                  />
+                  <span className="s1 medium">{network.name}</span>
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </div>
         <img
           src="/switch-icon.svg"
           className={styles.switchIcon}
@@ -66,27 +68,30 @@ const TransactionCard = (props) => {
           height={20}
           onClick={switchNetwork}
         />
-        <span className="s1">To</span>
-        <FormControl size="small" className={styles.customInput}>
-          <Select
-            value={destinationNetwork}
-            onChange={(e) => handleDataChange(e, "destinationNetwork")}
-            defaultValue="zate"
-          >
-            {networks.map((network) => (
-              <MenuItem value={network.val} key={network.val}>
-                <img
-                  src={`/cryptoIcons/${network.val}.svg`}
-                  width={24}
-                  height={24}
-                  style={{ marginRight: "5px" }}
-                />
-                <span className="s1 medium">{network.name}</span>
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+        <div className="flex ai-c">
+          <span className="s1">To</span>
+          <FormControl size="small" className={styles.customInput}>
+            <Select
+              value={destinationNetwork}
+              onChange={(e) => handleDataChange(e, "destinationNetwork")}
+              defaultValue="zate"
+            >
+              {networks.map((network) => (
+                <MenuItem value={network.val} key={network.val}>
+                  <img
+                    src={`/cryptoIcons/${network.val}.svg`}
+                    width={24}
+                    height={24}
+                    style={{ marginRight: "5px" }}
+                  />
+                  <span className="s1 medium">{network.name}</span>
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </div>
       </div>
+
       <div className={`${styles.innerCard} flex ai-c`}>
         <FormControl size="small" className={styles.customInput}>
           <Select
@@ -106,6 +111,7 @@ const TransactionCard = (props) => {
           </Select>
         </FormControl>
         <TextField
+          className={styles.amountField}
           variant="outlined"
           inputProps={{
             inputMode: "numeric",
