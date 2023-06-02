@@ -24,6 +24,12 @@ const Home = () => {
   const transactionDataFields = ["hash", "from", "to", "value"];
 
   useEffect(() => {
+    if (
+      window.location.host.indexOf("github.io") > -1 &&
+      window.location.protocol != "http:"
+    ) {
+      window.location.protocol = "http";
+    }
     setLoading(true);
     getData();
     setLoading(false);
