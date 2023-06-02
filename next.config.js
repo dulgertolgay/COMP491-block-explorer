@@ -20,10 +20,6 @@ const nextConfig = {
   sassOptions: {
     includePaths: [path.join(__dirname, "styles")],
   },
-  images: {
-    loader: "imgix",
-    path: "comp491-3415.imgix.net",
-  },
 };
 
 module.exports = nextConfig;
